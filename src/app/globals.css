@@ -7,9 +7,10 @@
 
 body {
   font-family: var(--font-serif);
-  background-color: #1c1917;
-  color: #fef3c7;
+  background: linear-gradient(180deg, #f5f0e6 0%, #e8e0d0 50%, #d4c9b5 100%);
+  color: #3d2914;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 /* Custom scrollbar */
@@ -18,16 +19,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #292524;
+  background: #e8e0d0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #78350f;
+  background: #a67c52;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #92400e;
+  background: #8b5e34;
 }
 
 /* Prevent text selection on game elements */
@@ -40,4 +41,10 @@ body {
 /* Smooth animations */
 * {
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Pixel art rendering */
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }

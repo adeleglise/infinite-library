@@ -33,15 +33,15 @@ export function ClickArea() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 p-8">
+    <div className="flex flex-col items-center gap-4 p-6">
       {/* Main counter */}
       <div className="text-center">
-        <h1 className="text-5xl md:text-7xl font-serif font-bold text-amber-100">
+        <h1 className="text-4xl md:text-6xl font-serif font-bold text-amber-900">
           {formatNumber(glyphs, 0)}
         </h1>
-        <p className="text-xl text-amber-200/70 mt-2">📝 Glyphes</p>
+        <p className="text-lg text-amber-700/70 mt-1">📝 Glyphes</p>
         {production.gt(0) && (
-          <p className="text-sm text-amber-300/50 mt-1">
+          <p className="text-sm text-green-700/70 mt-1">
             +{formatNumber(production)}/s
           </p>
         )}
@@ -52,26 +52,26 @@ export function ClickArea() {
         onClick={handleClick}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="relative w-48 h-48 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-amber-700 to-amber-900 border-4 border-amber-500/50 shadow-2xl flex items-center justify-center cursor-pointer select-none overflow-hidden"
+        className="relative w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-amber-200 to-amber-400 border-4 border-amber-500/50 shadow-xl flex items-center justify-center cursor-pointer select-none overflow-hidden hover:shadow-2xl transition-shadow"
       >
-        <span className="text-6xl md:text-8xl">📜</span>
+        <span className="text-5xl md:text-6xl">📜</span>
 
         {/* Floating numbers */}
         {floatingNumbers.map((num) => (
           <motion.span
             key={num.id}
-            initial={{ opacity: 1, y: 0, x: num.x - 96, scale: 1 }}
-            animate={{ opacity: 0, y: -60, scale: 1.5 }}
-            transition={{ duration: 1 }}
-            className="absolute text-2xl font-bold text-amber-300 pointer-events-none"
-            style={{ left: num.x, top: num.y }}
+            initial={{ opacity: 1, y: 0, scale: 1 }}
+            animate={{ opacity: 0, y: -50, scale: 1.5 }}
+            transition={{ duration: 0.8 }}
+            className="absolute text-xl font-bold text-amber-800 pointer-events-none"
+            style={{ left: num.x - 10, top: num.y - 10 }}
           >
             +1
           </motion.span>
         ))}
       </motion.button>
 
-      <p className="text-amber-400/60 text-sm">Cliquez pour générer des glyphes</p>
+      <p className="text-amber-600/60 text-xs">Cliquez pour générer des glyphes</p>
     </div>
   );
 }
