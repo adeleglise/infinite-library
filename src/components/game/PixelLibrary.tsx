@@ -4,9 +4,19 @@ import { useGameStore } from "@/lib/gameStore";
 import { useMemo } from "react";
 import Decimal from "break_infinity.js";
 
+// Helper to ensure value is Decimal
+function ensureDecimal(value: unknown): Decimal {
+  if (value instanceof Decimal) return value;
+  if (typeof value === "number" || typeof value === "string") {
+    return new Decimal(value);
+  }
+  return new Decimal(0);
+}
+
 // Pixel art library that fills up as you progress
 export function PixelLibrary() {
   const { generators, totalGlyphsEarned } = useGameStore();
+  const safeTotalGlyphsEarned = useMemo(() => ensureDecimal(totalGlyphsEarned), [totalGlyphsEarned]);
 
   // Calculate total books owned (based on generators)
   const totalBooks = useMemo(() => {
@@ -110,11 +120,11 @@ export function PixelLibrary() {
         <p className="text-amber-800 font-serif text-sm">
           📚 {totalBooks} livres collectés
         </p>
-        {totalGlyphsEarned.gt(0) && (
+        {safeTotalGlyphsEarned.gt(0) && (
           <p className="text-amber-600/60 text-xs mt-1">
-            {totalGlyphsEarned.gt(new Decimal(1e6))
-              ? totalGlyphsEarned.toExponential(1)
-              : totalGlyphsEarned.toFixed(0)}{" "}
+            {safeTotalGlyphsEarned.gt(new Decimal(1e6))
+              ? safeTotalGlyphsEarned.toExponential(1)
+              : safeTotalGlyphsEarned.toFixed(0)}{" "}
             glyphes générés au total
           </p>
         )}

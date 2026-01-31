@@ -3,7 +3,8 @@
 import { useGameStore } from "@/lib/gameStore";
 import { formatNumber } from "@/lib/formatNumber";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import Decimal from "break_infinity.js";
 
 interface FloatingNumber {
   id: number;
@@ -11,10 +12,20 @@ interface FloatingNumber {
   y: number;
 }
 
+// Helper to ensure value is Decimal
+function ensureDecimal(value: unknown): Decimal {
+  if (value instanceof Decimal) return value;
+  if (typeof value === "number" || typeof value === "string") {
+    return new Decimal(value);
+  }
+  return new Decimal(0);
+}
+
 export function ClickArea() {
   const { glyphs, click, getTotalProduction } = useGameStore();
   const [floatingNumbers, setFloatingNumbers] = useState<FloatingNumber[]>([]);
-  const production = getTotalProduction();
+  const production = useMemo(() => ensureDecimal(getTotalProduction()), [getTotalProduction]);
+  const safeGlyphs = useMemo(() => ensureDecimal(glyphs), [glyphs]);
 
   const handleClick = (e: React.MouseEvent) => {
     click();
@@ -37,7 +48,7 @@ export function ClickArea() {
       {/* Main counter */}
       <div className="text-center">
         <h1 className="text-4xl md:text-6xl font-serif font-bold text-amber-900">
-          {formatNumber(glyphs, 0)}
+          {formatNumber(safeGlyphs, 0)}
         </h1>
         <p className="text-lg text-amber-700/70 mt-1">📝 Glyphes</p>
         {production.gt(0) && (

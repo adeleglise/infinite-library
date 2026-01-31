@@ -3,11 +3,23 @@
 import { useGameStore } from "@/lib/gameStore";
 import { formatNumber } from "@/lib/formatNumber";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
+import Decimal from "break_infinity.js";
+
+// Helper to ensure value is Decimal
+function ensureDecimal(value: unknown): Decimal {
+  if (value instanceof Decimal) return value;
+  if (typeof value === "number" || typeof value === "string") {
+    return new Decimal(value);
+  }
+  return new Decimal(0);
+}
 
 export function GeneratorList() {
   const { generators, glyphs, buyGenerator, getGeneratorCost, getGeneratorProduction } =
     useGameStore();
-
+  
+  const safeGlyphs = useMemo(() => ensureDecimal(glyphs), [glyphs]);
   const visibleGenerators = generators.filter((g) => g.unlocked);
 
   return (
@@ -17,9 +29,9 @@ export function GeneratorList() {
       </h2>
 
       {visibleGenerators.map((generator) => {
-        const cost = getGeneratorCost(generator.id);
-        const production = getGeneratorProduction(generator.id);
-        const canAfford = glyphs.gte(cost);
+        const cost = ensureDecimal(getGeneratorCost(generator.id));
+        const production = ensureDecimal(getGeneratorProduction(generator.id));
+        const canAfford = safeGlyphs.gte(cost);
 
         return (
           <motion.button
