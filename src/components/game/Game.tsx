@@ -6,6 +6,7 @@ import { useGameStore } from "@/lib/gameStore";
 import { ClickArea } from "./ClickArea";
 import { GeneratorList } from "./GeneratorList";
 import { PixelLibrary } from "./PixelLibrary";
+import { UpgradesPanel } from "./UpgradesPanel";
 import { NotesPanel } from "../notes/NotesPanel";
 import Decimal from "break_infinity.js";
 
@@ -68,15 +69,20 @@ export function Game() {
               <PixelLibrary />
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 pt-0">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 p-4 pt-0">
               {/* Left: Click area */}
               <div className="flex items-center justify-center min-h-[350px] bg-amber-100/60 rounded-xl border border-amber-300/50 shadow-inner">
                 <ClickArea />
               </div>
 
-              {/* Right: Generators */}
+              {/* Center: Generators */}
               <div className="bg-amber-100/60 rounded-xl border border-amber-300/50 shadow-inner max-h-[500px] overflow-y-auto">
                 <GeneratorList />
+              </div>
+
+              {/* Right: Upgrades */}
+              <div className="bg-amber-100/60 rounded-xl border border-amber-300/50 shadow-inner max-h-[500px] overflow-y-auto p-2">
+                <UpgradesPanel />
               </div>
             </div>
 
