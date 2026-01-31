@@ -1,0 +1,22 @@
+{
+  "name": "La Bibliothèque Infinie",
+  "short_name": "Bibliothèque",
+  "description": "Un jeu incrémental inspiré par La Bibliothèque de Babel de Borges",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1c1917",
+  "theme_color": "#1c1917",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
