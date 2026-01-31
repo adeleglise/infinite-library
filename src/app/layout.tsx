@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   description:
     "Un jeu incrémental inspiré par La Bibliothèque de Babel de Borges",
   manifest: "/manifest.json",
+  icons: {
+    icon: "/icons/icon-512.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
